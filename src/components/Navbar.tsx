@@ -1,7 +1,9 @@
+import { User } from "firebase/auth";
 import { Page } from "../App";
+import { logout } from "../firebase/auth";
 
 export type NavbarProps = {
-	user: string | undefined;
+	user: User | undefined;
 	currentPage: Page;
 	onLogout: () => void;
 	handlePageChange: (page: Page) => void;
@@ -13,10 +15,14 @@ const Navbar = ({
 	onLogout,
 	handlePageChange,
 }: NavbarProps) => {
+	const handleLogout = async () => {
+		await logout();
+		onLogout();
+	};
 	const signedInNav = (
 		<div className="">
-			<span>{user}</span>
-			<button onClick={onLogout}>Logout</button>
+			<span>{user?.email}</span>
+			<button onClick={handleLogout}>Logout</button>
 		</div>
 	);
 	const loggedOutNav = (
