@@ -1,3 +1,5 @@
+import RegisterForm from "../components/RegisterForm";
+
 export type RegisterProps = {
 	onRegister: (user: string) => void;
 };
@@ -5,7 +7,8 @@ export type RegisterProps = {
 const Register = ({ onRegister }: RegisterProps) => {
 	return (
 		<div>
-			<button onClick={() => onRegister("user@email.com")}>Register</button>
+			<h2>Register</h2>
+			<RegisterForm onSubmit={(email) => onRegister(email)} />
 		</div>
 	);
 };
