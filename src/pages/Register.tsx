@@ -1,4 +1,4 @@
-import RegisterForm from "../components/RegisterForm";
+import UserForm from "../components/UserForm";
 
 export type RegisterProps = {
 	onRegister: (user: string) => void;
@@ -8,7 +8,7 @@ const Register = ({ onRegister }: RegisterProps) => {
 	return (
 		<div>
 			<h2>Register</h2>
-			<RegisterForm onSubmit={(email) => onRegister(email)} />
+			<UserForm onSubmit={onRegister} formType="register" />
 		</div>
 	);
 };

@@ -1,3 +1,5 @@
+import UserForm from "../components/UserForm";
+
 export type SignInProps = {
 	onSignIn: (user: string) => void;
 };
@@ -5,7 +7,8 @@ export type SignInProps = {
 const SignIn = ({ onSignIn }: SignInProps) => {
 	return (
 		<div>
-			<button onClick={() => onSignIn("user@email.com")}>Sign In</button>
+			<h2>Sign In</h2>
+			<UserForm onSubmit={onSignIn} formType={"signin"} />
 		</div>
 	);
 };
