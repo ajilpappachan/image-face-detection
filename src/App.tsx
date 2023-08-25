@@ -14,9 +14,15 @@ const App = () => {
 
 	return (
 		<div>
-			{currentPage === "signin" && <SignIn />}
-			{currentPage === "register" && <Register />}
-			{currentPage === "facedetection" && <FaceDetection />}
+			{currentPage === "signin" && (
+				<SignIn OnSignIn={() => changePage("facedetection")} />
+			)}
+			{currentPage === "register" && (
+				<Register OnRegister={() => changePage("facedetection")} />
+			)}
+			{currentPage === "facedetection" && (
+				<FaceDetection OnLogout={() => changePage("signin")} />
+			)}
 		</div>
 	);
 };
