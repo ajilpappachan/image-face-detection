@@ -1,11 +1,11 @@
-type SignInProps = {
-	OnSignIn: () => void;
+export type SignInProps = {
+	onSignIn: (user: string) => void;
 };
 
-const SignIn = ({ OnSignIn }: SignInProps) => {
+const SignIn = ({ onSignIn }: SignInProps) => {
 	return (
 		<div>
-			<button onClick={OnSignIn}>Sign In</button>
+			<button onClick={() => onSignIn("user@email.com")}>Sign In</button>
 		</div>
 	);
 };

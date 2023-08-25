@@ -1,12 +1,12 @@
-type FaceDetectionProps = {
-	OnLogout: () => void;
+export type FaceDetectionProps = {
+	onLogout: () => void;
 };
 
-const FaceDetection = ({ OnLogout }: FaceDetectionProps) => {
+const FaceDetection = ({ onLogout }: FaceDetectionProps) => {
 	return (
 		<div>
-			<button onClick={OnLogout}>Logout</button>
 			<p>FaceDetection</p>
+			<button onClick={onLogout}>Logout</button>
 		</div>
 	);
 };

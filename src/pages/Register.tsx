@@ -1,11 +1,11 @@
-type RegisterProps = {
-	OnRegister: () => void;
+export type RegisterProps = {
+	onRegister: (user: string) => void;
 };
 
-const Register = ({ OnRegister }: RegisterProps) => {
+const Register = ({ onRegister }: RegisterProps) => {
 	return (
 		<div>
-			<button onClick={OnRegister}>Register</button>
+			<button onClick={() => onRegister("user@email.com")}>Register</button>
 		</div>
 	);
 };
