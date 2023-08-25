@@ -1,10 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 
-export type RegisterFormProps = {
+export type UserFormProps = {
 	onSubmit: (email: string, password: string) => void;
+	formType: "signin" | "register";
 };
 
-const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
+const UserForm = ({ onSubmit, formType }: UserFormProps) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -27,9 +28,11 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
 			<input type="email" onChange={handleEmailChange} />
 			<label htmlFor="password">Password</label>
 			<input type="password" onChange={handlePasswordChange} />
-			<button type="submit">Register</button>
+			<button type="submit">
+				{formType === "signin" ? "Sign In" : "Register"}
+			</button>
 		</form>
 	);
 };
 
-export default RegisterForm;
+export default UserForm;
