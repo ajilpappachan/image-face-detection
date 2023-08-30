@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import FaceDetection from "./pages/FaceDetection";
 import Navbar from "./components/Navbar";
 import { User } from "firebase/auth";
+import ParticlesBackground from "./components/ParticlesBackground";
 
 export type Page = "signin" | "register" | "facedetection";
 
@@ -23,6 +24,7 @@ const App = () => {
 
 	return (
 		<div>
+			<ParticlesBackground />
 			<Navbar
 				user={user}
 				currentPage={currentPage}
