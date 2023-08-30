@@ -1,6 +1,7 @@
 import { User } from "firebase/auth";
 import { Page } from "../App";
 import { logout } from "../firebase/auth";
+import styles from "./Navbar.module.css";
 
 export type NavbarProps = {
 	user: User | undefined;
@@ -26,14 +27,25 @@ const Navbar = ({
 		</div>
 	);
 	const loggedOutNav = (
-		<div className="">
+		<nav className={styles.navbar}>
+			<p className={`${styles.title} text-bold`}>Image Face Detection</p>
 			{currentPage === "signin" && (
-				<button onClick={() => handlePageChange("register")}>Register</button>
+				<p
+					className={`${styles.auth} text-regular`}
+					onClick={() => handlePageChange("register")}
+				>
+					Register
+				</p>
 			)}
 			{currentPage === "register" && (
-				<button onClick={() => handlePageChange("signin")}>Sign In</button>
+				<p
+					className={`${styles.auth} text-regular`}
+					onClick={() => handlePageChange("signin")}
+				>
+					Sign In
+				</p>
 			)}
-		</div>
+		</nav>
 	);
 	return <div>{user ? signedInNav : loggedOutNav}</div>;
 };
