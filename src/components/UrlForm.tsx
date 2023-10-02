@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { Button, Form } from "react-bootstrap";
 
 type UrlFormProps = {
 	OnUrlChange?: (url: string) => void;
@@ -19,11 +20,13 @@ const UrlForm = ({ OnUrlChange, OnUrlSubmit }: UrlFormProps) => {
 	};
 
 	return (
-		<form onSubmit={handleUrlSubmit}>
-			<label htmlFor="url">Image URL</label>
-			<input type="text" name="url" onChange={handleUrlChange} />
-			<button type="submit">Submit</button>
-		</form>
+		<Form onSubmit={handleUrlSubmit}>
+			<Form.Group controlId="url">
+				<Form.Label>Url</Form.Label>
+				<Form.Control type="url" onChange={handleUrlChange} />
+			</Form.Group>
+			<Button type="submit">Submit</Button>
+		</Form>
 	);
 };
 
