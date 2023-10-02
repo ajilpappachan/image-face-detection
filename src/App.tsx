@@ -23,7 +23,7 @@ const App = () => {
 	};
 
 	return (
-		<div>
+		<>
 			<ParticlesBackground />
 			<Navbar
 				user={user}
@@ -36,7 +36,7 @@ const App = () => {
 			{currentPage === "facedetection" && (
 				<FaceDetection onLogout={logoutUser} />
 			)}
-		</div>
+		</>
 	);
 };
 

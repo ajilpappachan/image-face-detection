@@ -1,7 +1,7 @@
 import { User } from "firebase/auth";
 import { Page } from "../App";
 import { logout } from "../firebase/auth";
-import styles from "./Navbar.module.css";
+import { Navbar as BsNavbar, Container, Nav } from "react-bootstrap";
 
 export type NavbarProps = {
 	user: User | undefined;
@@ -21,33 +21,40 @@ const Navbar = ({
 		onLogout();
 	};
 	const signedInNav = (
-		<div className="">
-			<span>{user?.email}</span>
-			<button onClick={handleLogout}>Logout</button>
-		</div>
+		<BsNavbar.Text>
+			<Nav className="me-auto">
+				<BsNavbar.Text>{user?.email}</BsNavbar.Text>
+				<Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+			</Nav>
+		</BsNavbar.Text>
 	);
 	const loggedOutNav = (
-		<nav className={styles.navbar}>
-			<p className={`${styles.title} text-bold`}>Image Face Detection</p>
-			{currentPage === "signin" && (
-				<p
-					className={`${styles.auth} text-regular`}
-					onClick={() => handlePageChange("register")}
-				>
-					Register
-				</p>
-			)}
-			{currentPage === "register" && (
-				<p
-					className={`${styles.auth} text-regular`}
-					onClick={() => handlePageChange("signin")}
-				>
-					Sign In
-				</p>
-			)}
-		</nav>
+		<BsNavbar.Text>
+			<Nav className="me-auto">
+				{currentPage === "signin" && (
+					<Nav.Link onClick={() => handlePageChange("register")}>
+						Register
+					</Nav.Link>
+				)}
+				{currentPage === "register" && (
+					<Nav.Link onClick={() => handlePageChange("signin")}>
+						Sign In
+					</Nav.Link>
+				)}
+			</Nav>
+		</BsNavbar.Text>
 	);
-	return <div>{user ? signedInNav : loggedOutNav}</div>;
+	return (
+		<BsNavbar className="bg-background">
+			<Container>
+				<BsNavbar.Brand>Image Face Detection</BsNavbar.Brand>
+				<BsNavbar.Toggle />
+				<BsNavbar.Collapse className="justify-content-end">
+					{user ? signedInNav : loggedOutNav}
+				</BsNavbar.Collapse>
+			</Container>
+		</BsNavbar>
+	);
 };
 
 export default Navbar;
