@@ -4,7 +4,7 @@ const config: ISourceOptions = {
 	autoPlay: true,
 	background: {
 		color: {
-			value: "#060504",
+			value: "#f0f0f0",
 		},
 		image: "",
 		position: "50% 50%",
@@ -200,7 +200,7 @@ const config: ISourceOptions = {
 			},
 		},
 		color: {
-			value: "##7c949c",
+			value: "#0f0f0f",
 			animation: {
 				h: {
 					count: 0,
@@ -512,7 +512,7 @@ const config: ISourceOptions = {
 		links: {
 			blink: false,
 			color: {
-				value: "#ffffff",
+				value: "#000000",
 			},
 			consent: false,
 			distance: 150,
