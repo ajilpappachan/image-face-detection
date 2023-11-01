@@ -1,42 +1,21 @@
-import { User } from "firebase/auth";
-import { Page } from "../App";
-import { logout } from "../firebase/auth";
+import { Link } from "react-router-dom";
+import { useUserContext } from "../contexts/UserContext";
 
-export type NavbarProps = {
-	user: User | undefined;
-	currentPage: Page;
-	onLogout: () => void;
-	handlePageChange: (page: Page) => void;
-};
+const Navbar = () => {
+	const user = useUserContext();
 
-const Navbar = ({
-	user,
-	currentPage,
-	onLogout,
-	handlePageChange,
-}: NavbarProps) => {
-	const handleLogout = async () => {
-		await logout();
-		onLogout();
-	};
-	const signedInNav = (
-		<div className="">
-			<span>{user?.email}</span>
-			<button onClick={handleLogout}>Logout</button>
-		</div>
+	return (
+		<header>
+			<h1>Image Face Detection</h1>
+			<nav>
+				{user && (
+					<span>
+						Hello, {user.email} <Link to={"/logout"}>Logout</Link>
+					</span>
+				)}
+			</nav>
+		</header>
 	);
-	const loggedOutNav = (
-		<nav>
-			<p>Image Face Detection</p>
-			{currentPage === "signin" && (
-				<p onClick={() => handlePageChange("register")}>Register</p>
-			)}
-			{currentPage === "register" && (
-				<p onClick={() => handlePageChange("signin")}>Sign In</p>
-			)}
-		</nav>
-	);
-	return <div>{user ? signedInNav : loggedOutNav}</div>;
 };
 
 export default Navbar;

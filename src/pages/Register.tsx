@@ -1,21 +1,37 @@
-import { User } from "firebase/auth";
-import UserForm from "../components/UserForm";
-import { register } from "../firebase/auth";
+import { Form, Link, Navigate, useActionData } from "react-router-dom";
+import { RegisterActionData } from "./actions/Register.action";
 
-export type RegisterProps = {
-	onRegister: (user: User) => void;
-};
+const Register = () => {
+	const actionData = useActionData() as RegisterActionData | undefined;
 
-const Register = ({ onRegister }: RegisterProps) => {
-	const handleRegister = async (email: string, password: string) => {
-		const user = await register(email, password);
-		onRegister(user);
-	};
+	if (actionData?.user) return <Navigate to="/login" replace={true} />;
+
 	return (
-		<div>
-			<h2>Register</h2>
-			<UserForm onSubmit={handleRegister} formType="register" />
-		</div>
+		<>
+			<div>
+				<h2>Welcome to Image Face Detection!</h2>
+				<Form method="post" action="/register">
+					<input
+						name="email"
+						type="email"
+						placeholder="Email Address"
+						required
+					/>
+					<input
+						name="password"
+						type="password"
+						placeholder="Password"
+						required
+					/>
+					<button type="submit">Register</button>
+				</Form>
+				<p>
+					Already a user?
+					<Link to="/signin">Sign In</Link>
+				</p>
+			</div>
+			{actionData?.error && <div className="">{actionData.error}</div>}
+		</>
 	);
 };
 

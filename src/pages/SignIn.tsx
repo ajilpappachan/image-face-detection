@@ -1,21 +1,37 @@
-import { User } from "firebase/auth";
-import UserForm from "../components/UserForm";
-import { signIn } from "../firebase/auth";
+import { Form, Link, Navigate, useActionData } from "react-router-dom";
+import { SignInActionData } from "./actions/SignIn.action";
 
-export type SignInProps = {
-	onSignIn: (user: User) => void;
-};
+const SignIn = () => {
+	const actionData = useActionData() as SignInActionData | undefined;
 
-const SignIn = ({ onSignIn }: SignInProps) => {
-	const handleSignIn = async (email: string, password: string) => {
-		const user = await signIn(email, password);
-		onSignIn(user);
-	};
+	if (actionData?.user) return <Navigate to="/login" replace={true} />;
+
 	return (
-		<div>
-			<h2>Sign In</h2>
-			<UserForm onSubmit={handleSignIn} formType={"signin"} />
-		</div>
+		<>
+			<div>
+				<h2>Welcome Back!</h2>
+				<Form method="post" action="/signin">
+					<input
+						name="email"
+						type="email"
+						placeholder="Email Address"
+						required
+					/>
+					<input
+						name="password"
+						type="password"
+						placeholder="Password"
+						required
+					/>
+					<button type="submit">Sign In</button>
+				</Form>
+				<p>
+					New User?
+					<Link to="/register">Register</Link>
+				</p>
+			</div>
+			{actionData?.error && <div className="">{actionData.error}</div>}
+		</>
 	);
 };
 

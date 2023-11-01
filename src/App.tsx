@@ -1,43 +1,45 @@
-import { useState } from "react";
-import SignIn from "./pages/SignIn";
+import {
+	Route,
+	RouterProvider,
+	createBrowserRouter,
+	createRoutesFromElements,
+} from "react-router-dom";
+import Page from "./layouts/Page";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
+import registerAction from "./pages/actions/Register.action";
+import SignIn from "./pages/SignIn";
+import signinAction from "./pages/actions/SignIn.action";
+import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import FaceDetection from "./pages/FaceDetection";
-import Navbar from "./components/Navbar";
-import { User } from "firebase/auth";
-import ParticlesBackground from "./components/ParticlesBackground";
+import faceDetectionAction from "./pages/actions/FaceDetection.action";
 
-export type Page = "signin" | "register" | "facedetection";
+const router = createBrowserRouter(
+	createRoutesFromElements(
+		<Route path="/" element={<Page />}>
+			<Route index element={<Home />}></Route>
+			<Route
+				path="register"
+				element={<Register />}
+				action={registerAction}
+			></Route>
+			<Route path="signin" element={<SignIn />} action={signinAction}></Route>
+			<Route path="login" element={<Login />}></Route>
+			<Route path="logout" element={<Logout />}></Route>
+			<Route
+				path="facedetection"
+				element={<FaceDetection />}
+				action={faceDetectionAction}
+			></Route>
+			<Route path="*" element={<NotFound />}></Route>
+		</Route>
+	)
+);
 
 const App = () => {
-	const [currentPage, setCurrentPage] = useState<Page>("signin");
-	const [user, setUser] = useState<User>();
-
-	const signInUser = (newUser: User) => {
-		setUser(newUser);
-		setCurrentPage("facedetection");
-	};
-
-	const logoutUser = () => {
-		setUser(undefined);
-		setCurrentPage("signin");
-	};
-
-	return (
-		<div>
-			<ParticlesBackground />
-			<Navbar
-				user={user}
-				currentPage={currentPage}
-				onLogout={logoutUser}
-				handlePageChange={setCurrentPage}
-			/>
-			{currentPage === "signin" && <SignIn onSignIn={signInUser} />}
-			{currentPage === "register" && <Register onRegister={signInUser} />}
-			{currentPage === "facedetection" && (
-				<FaceDetection onLogout={logoutUser} />
-			)}
-		</div>
-	);
+	return <RouterProvider router={router} />;
 };
 
 export default App;
